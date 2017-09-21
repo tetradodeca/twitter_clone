@@ -1,0 +1,15 @@
+
+<div class="row">
+  <div class="col-md-4">
+  <div class="col-md--4">
+<% @tweets.each do |tweet| %>
+  <h5 class="name"><%= tweet.user.name %></h5>
+  <%= tweet.post %><br>
+  <%= time_ago_in_words(tweet.created_at) %> ago<br>
+  <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary" %>
+  <% end %>
+  <div class="col-md-4">
+  </div>
+</div>
+</div>
+</div>
