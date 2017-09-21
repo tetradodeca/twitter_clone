@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :replies
   has_many :tweets
+  has_many :likes
 
   validates :name, presence: true
 
