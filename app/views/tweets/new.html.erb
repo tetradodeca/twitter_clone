@@ -1,0 +1,7 @@
+<%= form_for @tweet, url: tweets_path, method: :post do |f| %>
+
+<%= f.label :Status %><br>
+<%= f.text_area :post %><br>
+<%= f.submit %>
+<% end %>
+<%= link_to "Cancel", root_path %>

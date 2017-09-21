@@ -1,0 +1,6 @@
+<%= form_for @reply, url: tweet_reply_path(tweet_id: @tweet.id, id: @reply.id), method: :put do |f| %>
+
+<%= f.label :Edit_Comment %><br>
+<%= f.text_area :comment %><br>
+<%= f.submit %>
+<% end %>

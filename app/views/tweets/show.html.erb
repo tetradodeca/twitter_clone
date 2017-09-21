@@ -1,0 +1,26 @@
+<br>
+<h5><%= @tweet.user.name %></h5>
+<%= @tweet.post %><br>
+<%= link_to "Edit tweet", edit_tweet_path(id: @tweet.id), class: "btn btn-primary" %>
+  <%= link_to "Delete tweet", tweet_path(id: @tweet.id), method: :delete, class: "btn btn-danger" %>
+  <br>
+  <br>
+
+  <% @tweet.replies.order(created_at: :desc).each do |reply| %>
+
+  <h5><%= reply.user.name %></h5>
+      <%= reply.comment %><br>
+      <%= time_ago_in_words(reply.created_at) %> ago<br>
+
+      <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id) %>
+  
+
+      <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, data: {confirm: "Delete comment?"} %><br><br>
+      <% end %>
+
+      <%= form_for @reply, url: tweet_replies_path(tweet_id: @tweet.id), method: :post do |f| %>
+
+      <%= f.label :comment %><br>
+      <%= f.text_area :comment %><br>
+      <%= f.submit %>
+      <% end %>
