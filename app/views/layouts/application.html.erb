@@ -6,9 +6,76 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+
   </head>
 
   <body>
+    <nav class="navbar navbar-transparent navbar-top navbar-color-on-scroll">
+
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-icons">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a><%= link_to "Twatter", root_path, class: 'navbar-brand' %></a>
+                                </div>
+
+                                <div class="collapse navbar-collapse" id="example-navbar-icons">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <% if user_signed_in? %>
+                                        <li><%= link_to 'Home'%></li>
+                                                <li><%= link_to'Logout', destroy_user_session_path, method: :delete %></li>
+                                        <li>
+                                            <a href="#pablo"><i class="material-icons">email</i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <%= avatar_for(current_user, size: 35) %>
+                                                <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li class="dropdown-header"> 
+                                                <%= link_to "#{current_user.name}", user_path(current_user.id) %></li>
+                                                <li class="divider"></li>
+                                                <li><%= link_to 'About Us', new_user_registration_path %></li>
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                            <li><%= link_to 'Login', new_user_session_path %></li>
+                                            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+                                        <% else %>
+                                        <form id="signin" class="navbar-form navbar-right" role="form">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Login</button>
+                   </form>
+     
+    </div>
+                                        <% end %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+	
+	<div class="jumbotron">
+		
+	</div>
+
+	<div class="container">
+
+	<div><%= image_tag @user.avatar, class: 'img-thumbnail img-responsive' %></div>
+
+	<div><h1><%= @user.name %></h1></div>
+
+	<p><%= @user.status %></p>
+	
+	<%= link_to "Edit", edit_user_path(@user) %>
+		
+	</div>
+
+</div>

@@ -1,0 +1,16 @@
+<h1><%= @user.name %></h1>
+
+<%= form_for(@user, html: { multipart: true }) do |f| %>
+
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+
+		<%= f.file_field :avatar %>
+
+		<%= f.label :status %>
+		<%= f.text_area :status %>
+
+		<%= f.submit "Save Changes" %>
+
+	<% end %>
