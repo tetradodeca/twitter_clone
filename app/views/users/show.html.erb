@@ -1,3 +1,5 @@
 <h1><%= @user.name %></h1>
 
+<%= avatar_for(@user, size: 35) %>
+<%= @user.status %>
 <%= link_to "Edit", edit_user_path(@user) %>
