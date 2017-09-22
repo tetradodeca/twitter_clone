@@ -1,15 +1,24 @@
+<div class="container">
 
-<div class="row">
-  <div class="col-md-4">
-  <div class="col-md--4">
-<% @tweets.each do |tweet| %>
-  <h5 class="name"><%= tweet.user.name %></h5>
-  <%= tweet.post %><br>
-  <%= time_ago_in_words(tweet.created_at) %> ago<br>
-  <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary" %>
-  <% end %>
-  <div class="col-md-4">
-  </div>
-</div>
-</div>
+	<% @tweets.each do |tweet| %>
+	  
+	  <div><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
+	  <h5 class="name"><%= tweet.user.name %></h5></div>
+
+	  <div><%= tweet.post %></div>
+	  
+	  <div><%= time_ago_in_words(tweet.created_at) %> ago</div>
+
+	  <div><%= tweet.likes.count %> likes</div>
+	  
+	  <div><%= link_to "Comments", tweet_path(id: tweet.id), class: "btn btn-primary btn-sm" %></div>
+
+	  	<% if tweet.likes.find_by(user_id: current_user.id)%>
+	  		<% current_like = tweet.likes.find_by(user_id: current_user.id)%>
+		  <div><%= link_to "Dislike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, class: "btn btn-primary btn-sm" %> </div>
+		  <% else %>
+		  <div><%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, class: "btn btn-primary btn-sm" %></div>
+		  <% end %>
+	<% end %>
+
 </div>

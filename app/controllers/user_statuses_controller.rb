@@ -1,0 +1,3 @@
+class UserStatuses < ApplicationController
+
+end
