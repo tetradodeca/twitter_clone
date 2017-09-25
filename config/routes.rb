@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   		resources :likes, only: [:create, :destroy]
 	end
   resources :users, only: [:show, :edit, :update] do
-  	member do
-  		get :follower, :leader
-  	end
+
   end
+
+  resources :userstatuses, only: [:create, :destroy]
   
 end

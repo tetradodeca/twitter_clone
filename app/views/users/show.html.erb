@@ -6,14 +6,23 @@
 
 	<div class="container">
 
-	<div><%= image_tag @user.avatar, class: 'img-thumbnail img-responsive' %></div>
+		<div><%= image_tag @user.avatar, class: 'img-thumbnail img-responsive' %></div>
 
-	<div><h1><%= @user.name %></h1></div>
+		<div><h1><%= @user.name %></h1></div>
 
-	<p><%= @user.status %></p>
+		<p><%= @user.status %></p>
 	
-	<%= link_to "Edit", edit_user_path(@user) %>
-		
+		<%= link_to "Edit", edit_user_path(@user) %>
+
+		<% if current_user == @user %>		
+			<p>Same User</p>
+		<% elsif %>
+			<div><%= link_to "Follow", userstatuses_path(@user) %></div>
+		<% else %>
+			<div><%= link_to "Unfollow", edit_user_path(@user) %></div>
+		<% end %>
 	</div>
+
+
 
 </div>
