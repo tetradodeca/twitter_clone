@@ -4,9 +4,12 @@
       
 <%# ------------------------- tweet show page is code below ---------------------------------- %>
 
+
       <div class="col-md-4 maintwit">
         <div class="container-fluid">   
           
+
+
 
           <div class="row tweetinfo">
             
@@ -14,6 +17,7 @@
                   <%= @tweet.post %><br>
           </div>
             
+
 
               <div class= "row">
 
@@ -45,6 +49,9 @@
             <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id) %>
   
 
+
+  
+
             <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, data: {confirm: "Delete comment?"} %>
             <hr>
           <% end %>
@@ -72,3 +79,4 @@
   </div>
 </div>
 </div>
+

@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
   
   <div class="row num">
@@ -43,7 +44,7 @@
 
 <%#----------------------- top is data bar. below is tweets section -------------------------------------%> 
 
-  <br>
+
 
   
   <div class="row">
@@ -52,7 +53,7 @@
 
     <%= form_for @tweet, url: tweets_path, method: :post do |f| %>
 
-    <br>
+    
     <div class="form-group">
     <%= f.label :Post_a_tweet, class: "control-label" %>
     
@@ -88,6 +89,7 @@
       <div class="col-md-4 maintwit">
         
         <% @tweets.each do |tweet| %>
+        <div><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
           <h5 class="name tweetinfo"><%= tweet.user.name %></h5>
             <%= tweet.post %><br>
 
@@ -97,7 +99,17 @@
                     <small><%= time_ago_in_words(tweet.created_at) %> ago</small><br>
                   </div>
               
-                    <div class="col-md-2 col-xs-2">
+                   <div><%= tweet.likes.count %> likes</div>
+                  #later implemented as ajax
+                  
+                 <% if tweet.likes.find_by(user_id: current_user.id)%>
+	  		          <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
+		                <div><%= link_to "Dislike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, class: "btn btn-primary btn-sm" %> </div>
+		               <% else %>
+		              <div><%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, class: "btn btn-primary btn-sm" %></div>
+		              <% end %>
+                  
+                  <div class="col-md-2 col-xs-2">
                     <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs" %>
                     </div>
               
@@ -116,6 +128,7 @@
     
   </div>
 </div>
+
 
 
 
