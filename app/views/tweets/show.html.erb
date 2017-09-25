@@ -1,27 +1,82 @@
-<div class="container">
-<h5><%= @tweet.user.name %></h5>
-<%= @tweet.post %>
-<%= link_to "Edit tweet", edit_tweet_path(id: @tweet.id), class: "btn btn-primary" %>
-  <%= link_to "Delete tweet", tweet_path(id: @tweet.id), method: :delete, class: "btn btn-danger" %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+      
+<%# ------------------------- tweet show page is code below ---------------------------------- %>
 
 
-  <% @tweet.replies.order(created_at: :desc).each do |reply| %>
+      <div class="col-md-4 maintwit">
+        <div class="container-fluid">   
+          
 
-  <h5><%= reply.user.name %></h5>
-      <%= reply.comment %>
-      <%= time_ago_in_words(reply.created_at) %> ago
 
-      <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id) %>
+
+          <div class="row tweetinfo">
+            
+              <h5><%= @tweet.user.name %></h5>
+                  <%= @tweet.post %><br>
+          </div>
+            
+
+
+              <div class= "row">
+
+                <div class="container-fluid tweetinfo">
+                  <div class="col-md-8 col-xs-8">
+                    <small><%= time_ago_in_words(@tweet.created_at) %> ago</small><br>
+                  </div>
+                    <div class="col-md-2 col-xs-2">
+                      <%= link_to "Edit tweet", edit_tweet_path(id: @tweet.id), class: "btn btn-primary btn-xs" %>
+                    </div>
+                
+
+                    <div class="col-md-2 col-xs-2">
+                      <%= link_to "Delete tweet", tweet_path(id: @tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
+                    </div>
+                </div>
+                    <hr>
+              </div>
+
+          <br>
+          <br>
+
+          <% @tweet.replies.order(created_at: :desc).each do |reply| %>
+
+            <h5><%= reply.user.name %></h5>
+            <%= reply.comment %><br>
+            <small><%= time_ago_in_words(reply.created_at) %> ago</small><br>
+
+            <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id) %>
   
 
-      <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, data: {confirm: "Delete comment?"} %>
-  <% end %>
+
+  
+
+            <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, data: {confirm: "Delete comment?"} %>
+            <hr>
+          <% end %>
+        </div>
+      
+
+<%# --------------------------- comment box at the bottom code. ------------------------------- %>
+
+
+          <div class="container-fluid mmaintwit">
+            <div class="row">
+              <%= form_for @reply, url: tweet_replies_path(tweet_id: @tweet.id), method: :post do |f| %>
+
+                <div class="form-group">
+                <%= f.label :comment, class: "control-label" %><br>
+                <%= f.text_area :comment, class: "form-control" %><br>
+                <div class="buttons">
+                <%= f.submit "Post", class: "btn btn-primary pull-right" %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+    </div>
+      <div class="col-md-4"></div>  
+  </div>
+</div>
 </div>
 
-    <%= form_for @reply, url: tweet_replies_path(tweet_id: @tweet.id), method: :post do |f| %>
-
-      <%= f.label :comment %>
-      <%= f.text_area :comment %>
-      <%= f.submit %>
-    <% end %>
-  
