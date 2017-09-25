@@ -16,10 +16,11 @@
 
 		<% if current_user == @user %>		
 			<p>Same User</p>
-		<% elsif %>
-			<div><%= link_to "Follow", userstatuses_path(@user) %></div>
+		<% elsif @user.user_statuses.find_by(follower_id: current_user.id) %>
+			<% current_userstatus = @user.user_statuses.find_by(follower_id: current_user.id) %>
+			<div><%= link_to "Unfollow", user_user_status_path(user_id: @user.id, user_status_id: current_userstatus.id), method: :delete %></div>
 		<% else %>
-			<div><%= link_to "Unfollow", edit_user_path(@user) %></div>
+			<div><%= link_to "Follow", user_user_statuses_path(@user), method: :post %></div>
 		<% end %>
 	</div>
 

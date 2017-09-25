@@ -1,16 +1,16 @@
-class UserStatuses < ApplicationController
+class UserStatusesController < ApplicationController
 
 	def create
+		@user = User.find(params[:user_id])
 		new_follow = UserStatus.new
-		new_follow.update(leader_id: params[:id], follower_id: current_user.id)
-		if new_follow.save
-			redirect_to @user
-		end
+		new_follow.update(follower_id: current_user.id, leader_id: @user.id)
+		redirect_to user_path(@user)
 	end
 
 	def destroy
-		unfollow = UserStatus.find(params[:id])
+		unfollow = UserStatus.find(params[:user_status_id])
 		unfollow.destroy
+		redirect_to user_path(params[:id])
 	end
 
 end

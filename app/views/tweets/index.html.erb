@@ -31,6 +31,8 @@
     
      </div>  
 
+
+
 <%#----------------------- all stuff edit on top only! -------------------------------------------- %>
         
 
@@ -100,7 +102,7 @@
                   </div>
               
                    <div><%= tweet.likes.count %> likes</div>
-                  #later implemented as ajax
+                  <!-- later implemented as ajax -->
                   
                  <% if tweet.likes.find_by(user_id: current_user.id)%>
 	  		          <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
