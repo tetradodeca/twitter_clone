@@ -92,7 +92,7 @@
         
         <% @tweets.each do |tweet| %>
         <div><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
-          <h5 class="name tweetinfo"><%= tweet.user.name %></h5>
+          <h5 class="name tweetinfo"><%= link_to tweet.user.name, user_path(tweet.user.id) %></h5>
             <%= tweet.post %><br>
 
               
