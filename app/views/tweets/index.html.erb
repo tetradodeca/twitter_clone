@@ -1,15 +1,122 @@
+<div class="container-fluid">
+  
+  <div class="row num">
+    
+    <div class="col-md-4"></div>
 
-<div class="row">
-  <div class="col-md-4">
-  <div class="col-md--4">
-<% @tweets.each do |tweet| %>
-  <h5 class="name"><%= tweet.user.name %></h5>
-  <%= tweet.post %><br>
-  <%= time_ago_in_words(tweet.created_at) %> ago<br>
-  <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary" %>
-  <% end %>
-  <div class="col-md-4">
+<%#------------------- middle column for showing stuff ------------------------------------------ %>
+      
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-3 col-xs-3">
+            <h6>Tweets</h6>        
+            <h6 class="number"><%= @twats.count %></h6>
+          </div>
+
+          <div class="col-md-3 col-xs-3">
+            <h6>Followings</h6>
+          </div>
+
+          <div class="col-md-3 col-xs-3">
+            <h6>Followers</h6>
+          </div>
+
+          <div class="col-md-3 col-xs-3">
+            <h6>Likes</h6>
+          </div>
+
+
+        </div>
+    
+     </div>  
+
+<%#----------------------- all stuff edit on top only! -------------------------------------------- %>
+        
+
+        <div class="col-md-4"></div>
+           
+  </div>
+
+
+
+
+
+<%#----------------------- top is data bar. below is tweets section -------------------------------------%> 
+
+  <br>
+
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="container-fluid mmaintwit">
+
+    <%= form_for @tweet, url: tweets_path, method: :post do |f| %>
+
+    <br>
+    <div class="form-group">
+    <%= f.label :Post_a_tweet, class: "control-label" %>
+    
+
+    <%= f.text_area :post, cols: 40, rows: 10, class: "form-control" %></div>
+   
+    <div class="buttons"> 
+    <%= f.submit "Post", class: "btn btn-primary pull-right" %>
+    </div>
+    
+    <% end %>
+      
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+
+<%#------------------------  create Status box is code above below is tweet index ----------------------------------- %>
+
+
+
+      
+      <div class="col-md-4 maintwit">
+        
+        <% @tweets.each do |tweet| %>
+          <h5 class="name tweetinfo"><%= tweet.user.name %></h5>
+            <%= tweet.post %><br>
+
+              
+                <div class="row tweetinfo">
+                  <div class="col-md-8 col-xs-8">
+                    <small><%= time_ago_in_words(tweet.created_at) %> ago</small><br>
+                  </div>
+              
+                    <div class="col-md-2 col-xs-2">
+                    <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs" %>
+                    </div>
+              
+                      <div class="col-md-2 col-xs-2">
+                      <%= link_to "Delete", tweet_path(id: tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
+                      </div>
+
+            </div>
+            <hr>
+         <% end %>
+      </div>
+        
+        <div class="col-md-4">
+           <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
+        </div>
+    
   </div>
 </div>
-</div>
-</div>
+
+
+
+

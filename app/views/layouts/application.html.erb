@@ -34,7 +34,7 @@
                                 <div class="collapse navbar-collapse" id="example-navbar-icons">
                                     <ul class="nav navbar-nav navbar-right">
                                         <% if user_signed_in? %>
-                                        <li><%= link_to 'Home'%></li>
+                                        <li><%= link_to 'Home', tweets_path%></li>
                                                 <li><%= link_to'Logout', destroy_user_session_path, method: :delete %></li>
                                         <li>
                                             <a href="#pablo"><i class="material-icons">email</i></a>
@@ -46,7 +46,7 @@
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li class="dropdown-header"> 
-                                                <%= link_to "#{current_user.name}", user_path(current_user.id) %></li>
+                                                
                                                 <li class="divider"></li>
                                                 <li><%= link_to 'About Us', new_user_registration_path %></li>
                                                 <li class="divider"></li>
@@ -69,6 +69,23 @@
 
                         <button type="submit" class="btn btn-primary">Login</button>
                    </form>
+
+                        <%= form_for(User.new, url: session_path(:user)) do |f| %>
+                              <div class="field">
+                                <%= f.label :email %><br />
+                                <%= f.email_field :email, autofocus: true %>
+                              </div>
+
+                              <div class="field">
+                                <%= f.label :password %><br />
+                                <%= f.password_field :password, autocomplete: "off" %>
+                              </div>
+
+
+                              <div class="actions">
+                                <%= f.submit "Log in" %>
+                              </div>
+                            <% end %>
      
     </div>
                                         <% end %>

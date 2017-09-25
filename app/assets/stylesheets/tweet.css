@@ -1,1 +1,35 @@
+/* --------- info bar ------------------------ */
+
+.num { background-color: #FFFFFF; }
+        
+
+h6 { font-size: 15px;
+    color: rgba(0, 0, 0, 0.5) }
+
+.number { margin-left: 20px;
+          color: #329CC3; }
+
+
 h5 { font-size: 30px; }
+
+
+/* -------- main tweets ---------------------- */
+
+
+body { background-color: #E6ECF0 }
+
+.tweetinfo { margin-top: 20px }
+
+small { font-size: 12px;
+        color: rgba(0, 0, 0, 0.5) 
+      }
+
+.maintwit { background-color: #FFFFFF;
+             }
+
+.mmaintwit { background-color: #FFFFFF;
+              padding-bottom: 30px;  
+            }
+
+
+

@@ -3,7 +3,9 @@ class TweetsController < ApplicationController
 before_action :authenticate_user!, except: [:index]
 
 def index
-  @tweets = Tweet.all.order("created_at DESC")
+  @tweets = Tweet.all.order("created_at DESC").paginate(page: params[:page], per_page: 3)
+  @twats = Tweet.all
+  @tweet = Tweet.new
 end
 
 def new
@@ -17,7 +19,7 @@ def create
   if @tweet.save
     redirect_to tweets_path
   else
-    render :new
+    redirect_to tweets_path
   end
 end
 
