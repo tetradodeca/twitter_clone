@@ -1,6 +1,7 @@
 class LikesController < ApplicationController
 
 	def create
+		@user = User.find(params[:id])
 		tit = tweet.likes.build
 		tit.user = current_user
 		tit.save
@@ -8,7 +9,8 @@ class LikesController < ApplicationController
 	end
 
 	def destroy
-		like = Like.find(params[:id])
+		@user = User.find(params[:id])
+		like = Like.find(params[:like_id])
 		like.destroy
 		redirect_to tweets_path
 	end

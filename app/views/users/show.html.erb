@@ -9,41 +9,21 @@
 		<div class="col-md-3"><div><%= image_tag @user.avatar, class: 'img-thumbnail img-circle propic' %></div></div>
 			
 		<div class="col-md-6">
+			
+			<div id="focount">
+				
+			<%= render 'follow_count' %>
 
-			<div class="row status">
-				<div class="col-md-2 col-md-offset-1"></div>
-				
-				<div class="col-md-2">
-					<div><p>Tweets</p></div><div class="colm"><%= @user.tweets.count %></div>
-				</div>
-				
-				<div class="col-md-2">
-					<div><p>Following</p></div><div class="colm"><%= UserStatus.where(leader_id: @user.id).count %></div>
-				</div>
-				
-				<div class="col-md-2">
-					<div><p>Follower</p></div><div class="colm"><%= UserStatus.where(follower_id: @user.id).count %></div>
-				</div>
 			</div>
-
+		
 		</div>
 
-
-		<% if current_user == @user %>		
+		<div id="followton">
 			
-			<div class="col-md-offset-1 col-md-2"><div class="btn-edit"><%= link_to "Edit Profile", edit_user_path(@user), class: 'btn btn-default' %></div></div>
-
-		<% elsif @user.user_statuses.find_by(follower_id: current_user.id) %>
-			
-			<% current_userstatus = @user.user_statuses.find_by(follower_id: current_user.id) %>
-			<div class="btn-edit"><%= link_to "Unfollow", user_user_status_path(user_id: @user.id, user_status_id: current_userstatus.id), method: :delete, class: 'btn btn-danger btn-edit' %></div>
+			<%= render 'follow_field' %>
 		
-		<% else %>
-		
-			<div class="btn-edit"><%= link_to "Follow", user_user_statuses_path(@user), method: :post, class: 'btn btn-info btn-edit' %></div>
-		
-		<% end %>
-
+		</div>
+	
 	</div>
 
 	<div class="container">

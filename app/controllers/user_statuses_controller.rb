@@ -11,7 +11,8 @@ class UserStatusesController < ApplicationController
 	end
 
 	def destroy
-		unfollow = UserStatus.find(params[:user_status_id])
+		@user = User.find(params[:user_id])
+		unfollow = UserStatus.find(params[:id])
 		unfollow.destroy
 		respond_to do |format|
 		format.html { redirect_to user_path(params[:id]) }

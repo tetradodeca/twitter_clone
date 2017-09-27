@@ -1,0 +1,17 @@
+<div class="row status">
+
+	<div class="col-md-2 col-md-offset-1"></div>
+	
+	<div class="col-md-2">
+		<div><p>Tweets</p></div><div class="colm"><%= @user.tweets.count %></div>
+	</div>
+	
+	<div class="col-md-2">
+		<div><p>Following</p></div><div class="colm"><%= UserStatus.where(follower_id: @user.id).count %></div>
+	</div>
+	
+	<div class="col-md-2">
+		<div><p>Follower</p></div><div class="colm"><%= UserStatus.where(leader_id: @user.id).count %></div>
+	</div>
+
+</div>
