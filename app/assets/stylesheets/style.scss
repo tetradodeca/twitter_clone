@@ -1,9 +1,54 @@
+.homebar {
+	background-color: white;
+}
+
+.twatand {
+	font-family: 'Lobster', cursive;
+	font-size: 25px;
+}
 .avatar_img {
 	border-radius: 50%
 }
 
-.img-responsive {
-	height: 100px; 
-	width: 100px; 
-	border-radius: 50px;
+.propic {
+	position: absolute;
+	margin: -90px auto 0;
+}
+
+.twitbar{
+	background-color: white;
+	height: 65px;
+	margin-bottom: 15px;
+}
+
+row.status {
+	padding-left: -10px;
+}
+
+.btn-edit {
+	display: table;
+ 	margin: 0 auto;
+ 	padding-top: 20px;
+}
+
+.status {
+	padding-top: 10px;
+}
+
+.colm {
+	position:absolute;
+}
+
+.text-area {
+	margin-left: 8px;
+}
+
+.tweets {
+	font-size: 12px;
+}
+
+.indi-tweet {
+	background-color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }

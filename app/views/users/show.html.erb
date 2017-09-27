@@ -1,23 +1,68 @@
-<div class="jumbotron">
-		<%= image_tag @user.background %>
+<div class="container-fluid">
+
+  <div class="jumbotron">
+	
+    <%= image_tag @user.background %>
+	
+  </div>
+
+	<div class="row twitbar">
+		
+		<div class="col-md-3"><div><%= image_tag @user.avatar, class: 'img-thumbnail img-circle propic' %></div></div>
+			
+		<div class="col-md-6">
+			
+			<div id="focount">
+				
+			<%= render 'follow_count' %>
+
+			</div>
+		
+		</div>
+
+		<div id="followton">
+			
+			<%= render 'follow_field' %>
+		
+		</div>
+	
 	</div>
-	
-	<div class="container-fluid">
 
-		<div><%= image_tag @user.avatar, class: 'img-thumbnail img-responsive' %></div>
+	<div class="container">
 
-		<div><h1><%= @user.name %></h1></div>
+		<div class="row user-feed">
+			
+			<div class="col-md-4">
+				
+				<div><h1><%= @user.name %></h1></div>
 
-		<p><%= @user.status %></p>
-	
-		<%= link_to "Edit", edit_user_path(@user) %>
+				<p><%= @user.status %></p>
+			
+			</div>			
 
-		<% if current_user == @user %>		
-			<p>Same User</p>
-		<% elsif %>
-			<div><%= link_to "Follow", userstatuses_path(@user) %></div>
-		<% else %>
-			<div><%= link_to "Unfollow", edit_user_path(@user) %></div>
-		<% end %>
-	
+			<div class="col-md-4 user-tweets">
+
+				<% @user.tweets.each do |tweet| %>
+
+				<div class="row indi-tweet">
+					
+					<div class="col-md-2"><%= avatar_for(tweet.user, size: 40) %></div> 
+
+					<div class="col-md-8 text-area">
+						<div><p class="tweets"><strong><%= tweet.user.name %></strong> @<%= tweet.user.name %> . <%= time_ago_in_words(tweet.created_at) %></p></div>
+							
+						<div><%= tweet.post %></div>	
+
+					</div>
+
+				</div>
+
+
+				<% end %>
+
+			</div>
+
+		</div>
+
+
 	</div>
