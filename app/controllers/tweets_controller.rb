@@ -6,6 +6,7 @@ def index
   @tweets = Tweet.all.order("created_at DESC").paginate(page: params[:page], per_page: 3)
   @twats = Tweet.all
   @tweet = Tweet.new
+  @like = Like.all
 end
 
 def new

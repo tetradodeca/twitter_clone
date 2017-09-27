@@ -1,0 +1,8 @@
+  <% if tweet.likes.find_by(user_id: current_user.id)%>
+    <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
+    <%= link_to "Unlike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, remote: true, class: "glyphicon glyphicon-thumbs-down" %>
+  <% else %>
+    <%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, remote: true, class: "glyphicon glyphicon-thumbs-up" %>
+  <% end %>
+
+  
