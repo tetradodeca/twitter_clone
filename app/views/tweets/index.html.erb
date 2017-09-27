@@ -31,6 +31,8 @@
     
      </div>  
 
+
+
 <%#----------------------- all stuff edit on top only! -------------------------------------------- %>
         
 
@@ -89,41 +91,44 @@
       <div class="col-md-4 maintwit">
         
         <% @tweets.each do |tweet| %>
-        <div><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
-          <h5 class="name tweetinfo"><%= tweet.user.name %></h5>
-            <%= tweet.post %><br>
+        
+        <% if tweet.user.user_statuses.exists?(follower_id: current_user.id) || tweet.user == current_user %>
 
-              
-                <div class="row tweetinfo">
-                  <div class="col-md-8 col-xs-8">
-                    <small><%= time_ago_in_words(tweet.created_at) %> ago</small><br>
-                  </div>
-              
-                   <div><%= tweet.likes.count %> likes</div>
-                  #later implemented as ajax
+            <div id="tweet-id <%= tweet.id %>"><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
+              <h5 class="name tweetinfo"><%= link_to tweet.user.name, user_path(tweet.user.id) %></h5>
+                <%= tweet.post %><br>
+
                   
-                 <% if tweet.likes.find_by(user_id: current_user.id)%>
-	  		          <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
-		                <div><%= link_to "Dislike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, class: "btn btn-primary btn-sm" %> </div>
-		               <% else %>
-		              <div><%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, class: "btn btn-primary btn-sm" %></div>
-		              <% end %>
-                  
-                  <div class="col-md-2 col-xs-2">
-                    <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs" %>
-                    </div>
-              
-                      <div class="col-md-2 col-xs-2">
-                      <%= link_to "Delete", tweet_path(id: tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
+                    <div class="row tweetinfo">
+                      <div class="col-md-8 col-xs-8">
+                        <small><%= time_ago_in_words(tweet.created_at) %> ago</small><br>
                       </div>
-
+                  
+                       <div><%= tweet.likes.count %> likes</div>
+                      <!-- later implemented as ajax -->
+                      
+                     <% if tweet.likes.find_by(user_id: current_user.id)%>
+    	  		          <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
+    		                <div><%= link_to "Dislike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, class: "btn btn-primary btn-sm", remote: true %> </div>
+    		               <% else %>
+    		              <div><%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, class: "btn btn-primary btn-sm", remote: true %></div>
+    		              <% end %>
+                      
+                      <div class="col-md-2 col-xs-2">
+                        <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs" %>
+                        </div>
+                  
+                          <div class="col-md-2 col-xs-2">
+                          <%= link_to "Delete", tweet_path(id: tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
+                          </div>
             </div>
             <hr>
+                  <% end %>
          <% end %>
+           <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
       </div>
         
         <div class="col-md-4">
-           <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
         </div>
     
   </div>

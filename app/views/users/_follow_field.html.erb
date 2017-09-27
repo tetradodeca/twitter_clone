@@ -1,0 +1,13 @@
+<% if current_user == @user %>		
+	
+	<div class="col-md-offset-1 col-md-2"><div class="btn-edit"><%= link_to "Edit Profile", edit_user_path(@user), class: 'btn btn-default' %></div></div>
+
+<% elsif current_userstatus = @user.user_statuses.find_by(follower_id: current_user.id) %>
+	
+	<div class="btn-edit"><%= link_to "Unfollow", user_user_status_path(user_id: @user.id, id: current_userstatus.id), method: :delete, class: 'btn btn-danger btn-edit', remote: true %></div>
+
+<% else %>
+
+	<div class="btn-edit"><%= link_to "Follow", user_user_statuses_path(@user), method: :post, class: 'btn btn-info btn-edit', remote: true %></div>
+
+<% end %>

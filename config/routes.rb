@@ -9,10 +9,11 @@ Rails.application.routes.draw do
     	resources :replies, only: [:create, :edit, :update, :destroy]
   		resources :likes, only: [:create, :destroy]
 	end
+  
   resources :users, only: [:show, :edit, :update] do
+  	resources :user_statuses, only: [:create, :destroy]
 
   end
 
-  resources :userstatuses, only: [:create, :destroy]
-  
+
 end
