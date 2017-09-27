@@ -1,35 +1,75 @@
 /* --------- info bar ------------------------ */
 
-.num { background-color: #FFFFFF; }
+.num { background-color: #FFFFFF; 
+}
         
 
 h6 { font-size: 15px;
-    color: rgba(0, 0, 0, 0.5) }
+    color: rgba(0, 0, 0, 0.5) 
+}
 
 .number { margin-left: 20px;
-          color: #329CC3; }
+          color: #329CC3; 
+}
 
 
-h5 { font-size: 30px; }
+h5 { font-size: 20px; 
+}
 
 
 /* -------- main tweets ---------------------- */
 
 
-body { background-color: #E6ECF0 }
+body { background-color: #E6ECF0 
+}
 
-.tweetinfo { margin-top: 20px }
+
 
 small { font-size: 12px;
         color: rgba(0, 0, 0, 0.5) 
-      }
+}
 
 .maintwit { background-color: #FFFFFF;
-             }
+}
 
 .mmaintwit { background-color: #FFFFFF;
               padding-bottom: 30px;  
-            }
+}
+
+.pad { margin-top: 20px;
+        padding-top: 20px; 
+}
+
+.ing { margin-right: 20px;
+        margin-left: 20px; 
+}
+
+.page { background-color: #FFFFFF;
+        margin-left: 20px 
+}
+
+.pose { margin-top: 10px; 
+}
+
+.poses {margin-top: 20px;
+}
+
+.postbutton { margin-top: 10px; 
+}
+
+.ind { margin-right: 10px; 
+}
+
+/* ---------------- show page ------------------- */
+
+h4 { text-align: center 
+}
 
 
+/* ----------------- profile page ---------------- */
 
+.jumbotron { width: 100%; 
+}
+
+.update { text-align: center; 
+}

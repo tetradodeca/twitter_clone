@@ -1,0 +1,7 @@
+<% like_count = tweet.likes.count %>
+  <% if like_count <= 1 %>
+    <small><%= tweet.likes.count %> like</small>
+  <% else %>
+    <small><%= tweet.likes.count %> likes</small>
+  <% end %>
+    <small><%= tweet.replies.count %> comments</small>

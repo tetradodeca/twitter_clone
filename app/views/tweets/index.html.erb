@@ -1,140 +1,144 @@
-
 <div class="container-fluid">
-  
+
   <div class="row num">
-    
-    <div class="col-md-4"></div>
+    <div class="col-md-4 col-xs-4"></div>
 
-<%#------------------- middle column for showing stuff ------------------------------------------ %>
-      
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-3 col-xs-3">
-            <h6>Tweets</h6>        
-            <h6 class="number"><%= @twats.count %></h6>
-          </div>
+    <div class="col-md-4 col-xs-4">
+      <div class="row">
 
-          <div class="col-md-3 col-xs-3">
-            <h6>Followings</h6>
-          </div>
-
-          <div class="col-md-3 col-xs-3">
-            <h6>Followers</h6>
-          </div>
-
-          <div class="col-md-3 col-xs-3">
-            <h6>Likes</h6>
-          </div>
-
-
+        <div class="col-md-3 col-xs-3">
+          <h6>Tweets</h6>
+          <h6 class="number"><%= @twats.count %></h6>
         </div>
-    
-     </div>  
+
+        <div class="col-md-3 col-xs-3">
+          <h6>Followings</h6>
+        </div>
+
+        <div class="col-md-3 col-xs-3">
+          <h6>Followers</h6>
+        </div>
+
+        <div class="col-md-3 col-xs-3">
+          <h6>Likes</h6>
+          <h6 class="number"><%= @like.count %></h6>
+        </div>
 
 
+      </div>
+    </div>
 
-<%#----------------------- all stuff edit on top only! -------------------------------------------- %>
-        
 
-        <div class="col-md-4"></div>
-           
+    <div class="col-md-4 col-xs-4"></div>
   </div>
 
+<%# ---------------------------- details bar top. form below ----------------------------------------- %>
 
-
-
-
-<%#----------------------- top is data bar. below is tweets section -------------------------------------%> 
-
-
-
-  
-  <div class="row">
-    <div class="col-md-4">
-      <div class="container-fluid mmaintwit">
-
-    <%= form_for @tweet, url: tweets_path, method: :post do |f| %>
-
-    
-    <div class="form-group">
-    <%= f.label :Post_a_tweet, class: "control-label" %>
-    
-
-    <%= f.text_area :post, cols: 40, rows: 10, class: "form-control" %></div>
-   
-    <div class="buttons"> 
-    <%= f.submit "Post", class: "btn btn-primary pull-right" %>
-    </div>
-    
-    <% end %>
+<div class="row">
+  <div class="container-fluid">
+    <div class="row">
       
+      <div class="col-md-3 col-xs-3 mmaintwit pad ing">
 
-
-
-
-
-
+        <%= form_for @tweet, url: tweets_path, method: :post do |f| %>
+        <%= f.label :Post_a_tweet, class: "control-label" %>
+        <%= f.text_area :post, cols: 40, rows: 10, class: "form-control" %>
+        
+        <div class="row postbutton">
+          <div class="container-fluid">
+            <%= f.submit "Post", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+        </div>
+        <% end %>
 
       </div>
-    </div>
 
 
+<%# ----------------------------- tweet index below ---------------------------------------------------- %>
 
 
+        <div class="col-md-5 col-xs-5 mmaintwit pad">
+          <div class="container-fluid">
+            
+             <% @tweets.each do |tweet| %>
+            
+              <div class="row">  
+
+                <div class="col-md-1 col-xs-1 ind">
+                  <%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
+                </div>
+
+                <div class="col-md-2 col-xs-2">
+                  <h5 class="name tweetinfo"><%= tweet.user.name %></h5>
+                </div>
+
+                <div class="col-md-8 col-xs-8"></div>
+
+              </div>
+            
+            
+            <div class="row pose">
+              <div class="container-fluid">
+                <%= tweet.post %>
+              </div>
+            </div>
 
 
-<%#------------------------  create Status box is code above below is tweet index ----------------------------------- %>
+            <div class="row poses">
+              
+              <div class="col-md-10 col-xs-10">
+                <small> Posted <%= time_ago_in_words(tweet.created_at) %> ago</small>
+              </div>
 
-
-
-      
-      <div class="col-md-4 maintwit">
+              <div class="col-md-2 col-xs-2">
+                <span id="likes-buttons-<%= tweet.id %>"><%= render 'likes_buttons', tweet: tweet %></span>
+              </div>
+                
         
-        <% @tweets.each do |tweet| %>
-        
-        <% if tweet.user.user_statuses.exists?(follower_id: current_user.id) || tweet.user == current_user %>
+            </div>
 
-            <div id="tweet-id <%= tweet.id %>"><%= avatar_for(tweet.user, size: 50, class: "img-circle avatar") %>
-              <h5 class="name tweetinfo"><%= link_to tweet.user.name, user_path(tweet.user.id) %></h5>
-                <%= tweet.post %><br>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <span id="small-likes-<%= tweet.id %>"><%= render 'small_likes', tweet: tweet %></span>
+              </div>
+            </div>
 
-                  
-                    <div class="row tweetinfo">
-                      <div class="col-md-8 col-xs-8">
-                        <small><%= time_ago_in_words(tweet.created_at) %> ago</small><br>
-                      </div>
-                  
-                       <div><%= tweet.likes.count %> likes</div>
-                      <!-- later implemented as ajax -->
-                      
-                     <% if tweet.likes.find_by(user_id: current_user.id)%>
-    	  		          <% current_like = tweet.likes.find_by(user_id: current_user.id)%>
-    		                <div><%= link_to "Dislike", tweet_like_path(tweet_id: tweet.id, id: current_like.id), method: :delete, class: "btn btn-primary btn-sm", remote: true %> </div>
-    		               <% else %>
-    		              <div><%= link_to "Like", tweet_likes_path(tweet_id: tweet.id), method: :post, class: "btn btn-primary btn-sm", remote: true %></div>
-    		              <% end %>
-                      
-                      <div class="col-md-2 col-xs-2">
-                        <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs" %>
-                        </div>
-                  
-                          <div class="col-md-2 col-xs-2">
-                          <%= link_to "Delete", tweet_path(id: tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
-                          </div>
+
+            <div class="row pose">
+              <div class="col-md-2 col-xs-2">
+                <%= link_to "See more", tweet_path(id: tweet.id), class: "btn btn-primary btn-xs pull-left" %>
+              </div>
+
+
+              <div class="col-md-2 col-xs-2">
+                <%= link_to "Delete", tweet_path(id: tweet.id), method: :delete, class: "btn btn-danger btn-xs pull-left" %>
+              </div>
+
+              <div class="col-md-8 col-xs-8"></div>
+              
+
             </div>
             <hr>
-                  <% end %>
-         <% end %>
-           <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
-      </div>
-        
-        <div class="col-md-4">
+            
+            <% end %>
+
+          </div>
+
         </div>
-    
+
+<%# --------------------------- pagination below ----------------------------------------------------------%>
+
+
+          <div class="col-md-3 col-xs-3 pad page">
+            <div class="container-fluid">
+            
+              <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
+
+            </div>
+          </div>
+
+    </div>
   </div>
 </div>
 
-
-
-
-
+</div>

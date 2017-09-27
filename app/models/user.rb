@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   mount_uploader :avatar, AvatarUploader
-  
+
+  mount_uploader :background, BackgroundUploader
+
   has_many :replies
   has_many :tweets
   has_many :likes

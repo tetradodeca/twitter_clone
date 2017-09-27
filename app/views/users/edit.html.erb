@@ -1,16 +1,71 @@
-<h1><%= @user.name %></h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 col-xs-3"></div>
 
-<%= form_for(@user, html: { multipart: true }) do |f| %>
+<%# ----------------------------------------------------------------------------------------------- %>
+    <div class="col-md-6 col-xs-6 mmaintwit">
+      <div class="update">
+        <h1>Edit your profile</h1>
+      </div>
+      
 
-		<%= f.label :name %>
-		<%= f.text_field :name %>
+      <div class="form-group">
+        <div class="row">
+          <div class="container-fluid">
+            <%= form_for(@user, html: { multipart: true }) do |f| %>
+            <%= f.label :Name, class: "control-label" %>
+            <%= f.text_field :name, class: "form-control" %><br>            
+          </div>  
+        </div>
+        
+
+          <div class="row">
+            <div class="container-fluid">
+              <div class="col-md-6 col-xs-6">
+                <%= f.label :Profile_banner_picture, class: "control-label" %>
+                <div class="buttons">
+                  <%= f.file_field :background, class: "btn btn-default" %>
+                </div><br>
+                <%= image_tag @user.background.thumb %><br>
+                <span class="help-block">Current display</span>
+              </div>
+
+              <div class="col-md-6 col-xs-6">
+                <%= f.label :Avatar_picture, class: "control-label" %>
+                <div class="buttons">
+                  <%= f.file_field :avatar, class: "btn btn-default" %>
+                </div><br>
+                <%= image_tag @user.avatar.thumb %><br>
+                <span class="help-block">Current display</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row pose">
+            <div class="container-fluid">
+              <%= f.label :Status, class: "control-label" %>
+              <%= f.text_area :status, class: "form-control" %><br>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="container-fluid">
+              <div class="buttons">
+                <%= link_to "Back", user_path(id: @user.id), class: "btn btn-danger pull-left" %>
+                <%= f.submit "Save Changes", class: "btn btn-success pull-right" %>
+              </div>
+            </div>
+          </div>
+
+          
+        <% end %>
+
+      </div>    
+
+    </div>
+<%# ------------------------------------------------------------------------------------------------ %>    
+    <div class="col-md-3 col-xs-3"></div>
+  </div>
+</div>
 
 
-		<%= f.file_field :avatar %>
-
-		<%= f.label :status %>
-		<%= f.text_area :status %>
-
-		<%= f.submit "Save Changes" %>
-
-	<% end %>

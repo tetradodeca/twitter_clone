@@ -1,82 +1,169 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4"></div>
-      
-<%# ------------------------- tweet show page is code below ---------------------------------- %>
+    <div class="col-md-3 col-xs-3"></div>
 
+<%# -------------------------- tweets show below -------------------------------------------------- %>
 
-      <div class="col-md-4 maintwit">
-        <div class="container-fluid">   
+    <div class="col-md-6 col-xs-6 mmaintwit pad">
+      <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-md-1 col-xs-1">
+            <%= avatar_for(@tweet.user, size: 50, class: "img-circle avatar") %>
+          </div>
+          
+          <div class="col-md-1 col-xs-1">
+            <h5><%= link_to @tweet.user.name, tweets_path %></h5>  
+          </div>
+          
+          <div class="col-md-9 col-xs-9"></div>
+
+        </div>
+
+        <div class="row pose">
+          <div class="container-fluid">
+            <%= @tweet.post %>
+          </div>
+        </div>
+
+        <div class="row poses">
+          
+          <div class="col-md-10 col-xs-10">
+            <small>Posted <%= time_ago_in_words(@tweet.created_at) %> ago</small>
+          </div>
+
           
 
+          <div class="col-md-2 col-xs-2">
+            <% if @tweet.likes.find_by(user_id: current_user.id)%>
+              <% current_like = @tweet.likes.find_by(user_id: current_user.id)%>
+              <%= link_to "Dislike", tweet_like_path(tweet_id: @tweet.id, id: current_like.id), method: :delete, remote: true,class: "glyphicon glyphicon-thumbs-down" %>
+             <% else %>
+                <%= link_to "Like", tweet_likes_path(tweet_id: @tweet.id), method: :post, remote: true, class: "glyphicon glyphicon-thumbs-up" %>
+            <% end %>
+          </div>  
 
-
-          <div class="row tweetinfo">
-            
-              <h5><%= @tweet.user.name %></h5>
-                  <%= @tweet.post %><br>
-          </div>
-            
-
-
-              <div class= "row">
-
-                <div class="container-fluid tweetinfo">
-                  <div class="col-md-8 col-xs-8">
-                    <small><%= time_ago_in_words(@tweet.created_at) %> ago</small><br>
-                  </div>
-                    <div class="col-md-2 col-xs-2">
-                      <%= link_to "Edit tweet", edit_tweet_path(id: @tweet.id), class: "btn btn-primary btn-xs" %>
-                    </div>
-                
-
-                    <div class="col-md-2 col-xs-2">
-                      <%= link_to "Delete tweet", tweet_path(id: @tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>
-                    </div>
-                </div>
-                    <hr>
-              </div>
-
-          <br>
-          <br>
-
-          <% @tweet.replies.order(created_at: :desc).each do |reply| %>
-
-            <h5><%= reply.user.name %></h5>
-            <%= reply.comment %><br>
-            <small><%= time_ago_in_words(reply.created_at) %> ago</small><br>
-
-            <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id) %>
-  
-
-
-  
-
-            <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, data: {confirm: "Delete comment?"} %>
-            <hr>
-          <% end %>
         </div>
-      
 
-<%# --------------------------- comment box at the bottom code. ------------------------------- %>
+        <div class="row">
+          <div class="col-md-2 col-xs-2">
+            <% like_count = @tweet.likes.count %>
+              <% if like_count <= 1 %>
+                <small><%= @tweet.likes.count %> like</small>
+              <% else %>
+                <small><%= @tweet.likes.count %> likes</small>
+              <% end %>
+          </div>
 
+        </div>
 
-          <div class="container-fluid mmaintwit">
-            <div class="row">
-              <%= form_for @reply, url: tweet_replies_path(tweet_id: @tweet.id), method: :post do |f| %>
+        <div class="row pose">
+          
+          <div class="col-md-2 col-xs-2">
+            <%= link_to "Edit tweet", edit_tweet_path(id: @tweet.id), class: "btn btn-primary btn-xs" %>
+          </div>
+          
+          <div class="col-md-2 col-xs-2">
+            <%= link_to "Delete tweet", tweet_path(id: @tweet.id), method: :delete, class: "btn btn-danger btn-xs" %>  
+          </div>
+
+          <div class="col-md-8 col-xs-8"></div>
+
+        </div>
+
+        <hr>
+
+<%# ---------------------------------- comment FORM below ---------------------------------------------- %>
+
+        <div class="row">
+          <div class="container-fluid">
+          <%= form_for @reply, url: tweet_replies_path(tweet_id: @tweet.id), method: :post do |f| %>
 
                 <div class="form-group">
-                <%= f.label :comment, class: "control-label" %><br>
-                <%= f.text_area :comment, class: "form-control" %><br>
+                  <%= f.label :comment, class: "control-label" %><br>
+                  <%= f.text_area :comment, class: "form-control" %><br>
                 <div class="buttons">
-                <%= f.submit "Post", class: "btn btn-primary pull-right" %>
+                  <%= f.submit "Post", class: "btn btn-primary pull-right" %>
                 </div>
+                </div>
+          <% end %> 
+          </div>
+        </div>
+
+        <div class="row"></div>
+        <hr>
+
+<%#-------------------------------------- Comments below ------------------------------------------------- %>
+        
+        <div class="row commentshow">
+          <h4><u>Comments</u></h4>
+        </div>
+        
+        <div class="row">
+          <div class="container-fluid">
+
+            <% @tweet.replies.order(created_at: :desc).each do |reply| %>
+
+            <div class="row">
+              
+              <div class="col-md-1 col-xs-1">
+               <%= avatar_for(reply.user, size: 50, class: "img-circle avatar") %>
               </div>
-              <% end %>
+
+              <div class="col-md-1 col-xs-1">
+                <h5><%= reply.user.name %></h5>  
+              </div>
+
+              <div class="col-md-10 col-xs-10"></div>
+
             </div>
+
+            <div class="row poses">
+              <div class="container-fluid">
+                <%= reply.comment %>
+              </div>
+            </div>
+
+            <div class="row poses">
+              <div class="col-md-10 col-xs-10">
+                <small>Posted <%= time_ago_in_words(reply.created_at) %> ago</small><br>
+              </div>
+            </div>
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="row pose">
+              
+              <div class="col-md-2 col-xs-2">
+                <%= link_to "Edit comment", edit_tweet_reply_path(tweet_id: @tweet.id, id: reply.id), class: "btn btn-primary btn-xs" %>
+              </div>
+
+              <div class="col-md-2 col-xs-2">
+                <%= link_to "Delete Comment", tweet_reply_path(tweet_id: @tweet.id, id: reply.id), method: :delete, class: "btn btn-danger btn-xs" %>       
+              </div>
+
+              <div class="col-md-8 col-xs-8"></div>
+              
+            </div>
+            <hr>
+
+            <% end %>
+            
+
+          </div>
+        </div>
+
+
+      </div>
     </div>
-      <div class="col-md-4"></div>  
+
+<%# ------------------------------------------------------------------------------------------------ %>
+
+    <div class="col-md-3 col-xs-3"></div>
   </div>
 </div>
-</div>
+
+
+
+
 
