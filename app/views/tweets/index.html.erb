@@ -20,8 +20,7 @@
         </div>
 
         <div class="col-md-3 col-xs-3">
-          <h6>Likes</h6>
-          <h6 class="number"><%= @like.count %></h6>
+          <span id="data-bar"><%= render 'data_bar' %></span>
         </div>
 
 
@@ -133,6 +132,18 @@
             <div class="container-fluid">
             
               <%= will_paginate @tweets, renderer: BootstrapPagination::Rails %>
+
+            </div>
+          </div>
+
+          <div class="col-md-3 col-xs-3 ">
+            <div class="container-fluid">
+              <div><h3>People you might know:</h3></div>
+            
+              <% User.all.each do |user| %>
+                <div class="container mmaintwit pad"><%= avatar_for(user, size: 35) %>
+                <%= link_to user.name, user_path(user.id) %></div>
+              <% end %>
 
             </div>
           </div>

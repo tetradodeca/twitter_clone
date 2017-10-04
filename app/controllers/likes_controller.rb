@@ -2,8 +2,8 @@ class LikesController < ApplicationController
 
 	def create
 
+		@like = Like.all
 		@tweet = Tweet.find(params[:tweet_id])
-		@user = User.find(params[:id])
 		tit = tweet.likes.build
 		tit.user = current_user
 		tit.save
@@ -13,10 +13,9 @@ class LikesController < ApplicationController
 	end
 
 	def destroy
-
+		@like = Like.all
 		@tweet = Tweet.find(params[:tweet_id])
-		@user = User.find(params[:id])
-		like = Like.find(params[:like_id])
+		like = Like.find(params[:id])
 		like.destroy
 		respond_to do |format|
 			format.js { render 'destroy.js.erb' }
