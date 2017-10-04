@@ -1,7 +1,19 @@
-<%= form_for @tweet, url: tweets_path, method: :post do |f| %>
+<div class="container-fluid">
+  <div class="row mmaintwit">
+    <div class="col-md-3 col-xs-3"></div>
+      <div class="col-md-6 col-xs-6">
+        <div class="form-group">
+          <%= form_for @tweet, url: tweets_path, method: :post do |f| %>
 
-<%= f.label :Status %><br>
-<%= f.text_area :post %><br>
-<%= f.submit %>
-<% end %>
-<%= link_to "Cancel", root_path %>
+          <%= f.label :Status %><br>
+          <%= f.text_area :post %><br>
+          <%= f.submit %>
+          <% end %>
+          <%= link_to "Cancel", root_path %>
+
+        </div>
+      </div>
+    <div class="col-md-3 col-xs-3"></div>
+    
+  </div>
+</div>
